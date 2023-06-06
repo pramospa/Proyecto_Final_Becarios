@@ -6,10 +6,13 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,5 +45,9 @@ public class BecarioInfo implements Serializable {
     }
 
     private String nameCenter;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @NotNull //FALTA POR PONER COSAS
+    private Becario becario;
 
 }
