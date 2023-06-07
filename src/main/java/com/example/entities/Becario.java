@@ -15,6 +15,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,12 +37,27 @@ public class Becario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    
+    @NotNull(message = "El nombre no puede ser nulo")
+    @NotBlank(message = "EL nombre del becario es requerido")
+    @Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
     private String name;
+    
+    @NotNull(message = "El apellido no puede ser nulo")
+    @NotBlank(message = "EL apellido del becario es requerido")
+    @Size(min = 1, max = 50, message = "El apellido no puede tener menos de 1 caracteres ni mas de 50")
     private String surname1;
+   
     private String surname2;
+    
+    @NotNull(message = "La fecha de nacimiento no puede ser nula")
+    @NotBlank(message = "La fecha de nacimiento del becario es requerida")
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "El genero no puede ser nulo")
+    @NotBlank(message = "EL genero del becario es requerido")
     private Gender gender;
 
     public enum Gender {
@@ -47,10 +65,15 @@ public class Becario implements Serializable {
     }
 
     @Enumerated(EnumType.STRING)
+   
+   
+    @NotNull(message = "El centro de procedencia no puede ser nulo")
+    @NotBlank(message = "EL centro de procedencia del becario es requerido")
     private Center center;
     public enum Center {
         MURCIA, VALENCIA
     }
+   
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "becario")
     @JsonIgnore
     private BecarioInfo becarioInfo;

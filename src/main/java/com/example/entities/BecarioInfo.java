@@ -47,7 +47,7 @@ public class BecarioInfo implements Serializable {
     private String nameCenter;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @NotNull //FALTA POR PONER COSAS
+    @NotNull
     private Becario becario;
 
 }
