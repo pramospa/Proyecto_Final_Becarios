@@ -55,23 +55,17 @@ public class Becario implements Serializable {
     private String surname2;
     
     @NotNull(message = "La fecha de nacimiento no puede ser nula")
-    @NotBlank(message = "La fecha de nacimiento del becario es requerida")
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "El genero no puede ser nulo")
-    @NotBlank(message = "EL genero del becario es requerido")
     private Gender gender;
-
     public enum Gender {
         MAN, WOMAN, NONBINARY, OTHER
     }
 
     @Enumerated(EnumType.STRING)
-   
-   
     @NotNull(message = "El centro de procedencia no puede ser nulo")
-    @NotBlank(message = "EL centro de procedencia del becario es requerido")
     private Center center;
     public enum Center {
         MURCIA, VALENCIA
@@ -81,8 +75,8 @@ public class Becario implements Serializable {
     @JsonIgnore
     private BecarioInfo becarioInfo;
 
-    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "becario")
-    // @JsonIgnore
-    // private List<Idiomas> idiomas;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "becario")
+    @JsonIgnore
+    private List<Idiomas> idiomas;
 
 }

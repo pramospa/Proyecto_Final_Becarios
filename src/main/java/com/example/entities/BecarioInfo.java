@@ -47,16 +47,14 @@ public class BecarioInfo implements Serializable {
     private String title;
    
     @NotNull(message = "La fecha de inicio no puede ser nula")
-    @NotBlank(message = "La fecha inicio es requerida")
     private LocalDate startDate;
    
     private LocalDate finishDate;
    
     @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
-    @NotBlank(message = "El centro educativo de procedencia es requerido")
+  
     @Enumerated(EnumType.STRING)
     private EducationCenter educationCenter;
-
     public enum EducationCenter {
         UNIVERSITY, IES
     }
@@ -71,3 +69,4 @@ public class BecarioInfo implements Serializable {
     private Becario becario;
 
 }
+ 
