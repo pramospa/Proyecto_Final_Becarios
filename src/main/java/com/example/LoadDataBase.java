@@ -3,24 +3,34 @@ package com.example;
 import java.time.LocalDate;
 
 import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.entities.Becario;
 import com.example.entities.BecarioInfo;
+import com.example.entities.Idiomas;
+import com.example.entities.Nivel;
 import com.example.entities.Becario.Center;
 import com.example.entities.Becario.Gender;
 import com.example.entities.BecarioInfo.EducationCenter;
 import com.example.service.BecarioInfoService;
 import com.example.service.BecarioService;
+import com.example.service.IdiomasService;
+
 
 @Configuration
 public class LoadDataBase {
 
     @Bean
-    public CommandLineRunner sampleData(BecarioService becarioService, BecarioInfoService becarioInfoService){
+    public CommandLineRunner sampleData(BecarioService becarioService, BecarioInfoService becarioInfoService,
+                                         IdiomasService idiomasService){
 
         return args -> {
+
+            idiomasService.save(Idiomas.builder().id(1).idioma("español").nivel(Nivel.B1).build());
+
+           
 
             becarioInfoService.save(BecarioInfo.builder()
                                     .id(1)
@@ -31,7 +41,6 @@ public class LoadDataBase {
                                     .educationCenter(EducationCenter.IES)
                                     .nameCenter("IES Cervantes")
                                     .build());
-
             becarioService.save(Becario.builder()
                                 .id(1)
                                 .name("pepe")
@@ -41,12 +50,11 @@ public class LoadDataBase {
                                 .gender(Gender.MAN)
                                 .center(Center.MURCIA)
                                 .becarioInfo(becarioInfoService.findById(1))
+                                .idiomas(null)
                                 .build());
-
 
 
 
         };
     }
-    
 }

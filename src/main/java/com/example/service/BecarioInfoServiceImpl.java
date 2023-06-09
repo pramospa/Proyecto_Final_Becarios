@@ -3,6 +3,7 @@ package com.example.service;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.BecarioInfoDao;
+import com.example.entities.Becario;
 import com.example.entities.BecarioInfo;
 
 import lombok.RequiredArgsConstructor;

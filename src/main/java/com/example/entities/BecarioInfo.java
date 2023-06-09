@@ -14,8 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,21 +36,21 @@ public class BecarioInfo implements Serializable {
     private int id;
     
 
-    @NotNull(message = "El grado de estudios no puede ser nulo")
-    @NotBlank(message = "El grado de estudios del becario es requerido")
+    // @NotNull(message = "El grado de estudios no puede ser nulo")
+    // @NotBlank(message = "El grado de estudios del becario es requerido")
     private String degreeFP;
     
 
-    @NotNull(message = "El titulo de estudios no puede ser nulo")
-    @NotBlank(message = "El titulo de estudios del becario es requerido")
+    // @NotNull(message = "El titulo de estudios no puede ser nulo")
+    // @NotBlank(message = "El titulo de estudios del becario es requerido")
     private String title;
    
-    @NotNull(message = "La fecha de inicio no puede ser nula")
+    // @NotNull(message = "La fecha de inicio no puede ser nula")
     private LocalDate startDate;
    
     private LocalDate finishDate;
    
-    @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
+    // @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
   
     @Enumerated(EnumType.STRING)
     private EducationCenter educationCenter;
@@ -59,12 +58,12 @@ public class BecarioInfo implements Serializable {
         UNIVERSITY, IES
     }
 
-    @NotNull(message = "El nombre del centro educativo de procedencia no puede ser nulo")
-    @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
+    // @NotNull(message = "El nombre del centro educativo de procedencia no puede ser nulo")
+    // @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
     private String nameCenter;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @NotNull(message = "La informacion del becario tiene que estar asociada a un becario")
+    // @NotNull(message = "La informacion del becario tiene que estar asociada a un becario")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 
