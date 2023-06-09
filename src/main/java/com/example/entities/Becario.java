@@ -2,8 +2,10 @@ package com.example.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,6 +15,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -77,5 +80,9 @@ public class Becario implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "becario")
     @JsonIgnore
     private BecarioInfo becarioInfo;
+
+    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "becario")
+    // @JsonIgnore
+    // private List<Idiomas> idiomas;
 
 }

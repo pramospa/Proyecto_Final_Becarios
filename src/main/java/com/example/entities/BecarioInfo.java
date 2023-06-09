@@ -3,6 +3,8 @@ package com.example.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,11 +35,25 @@ public class BecarioInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+
+    @NotNull(message = "El grado de estudios no puede ser nulo")
+    @NotBlank(message = "El grado de estudios del becario es requerido")
     private String degreeFP;
+    
+
+    @NotNull(message = "El titulo de estudios no puede ser nulo")
+    @NotBlank(message = "El titulo de estudios del becario es requerido")
     private String title;
+   
+    @NotNull(message = "La fecha de inicio no puede ser nula")
+    @NotBlank(message = "La fecha inicio es requerida")
     private LocalDate startDate;
+   
     private LocalDate finishDate;
    
+    @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
+    @NotBlank(message = "El centro educativo de procedencia es requerido")
     @Enumerated(EnumType.STRING)
     private EducationCenter educationCenter;
 
@@ -44,10 +61,13 @@ public class BecarioInfo implements Serializable {
         UNIVERSITY, IES
     }
 
+    @NotNull(message = "El nombre del centro educativo de procedencia no puede ser nulo")
+    @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
     private String nameCenter;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @NotNull
+    @NotNull(message = "La informacion del becario tiene que estar asociada a un becario")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 
 }
