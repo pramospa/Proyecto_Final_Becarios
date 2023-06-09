@@ -28,8 +28,6 @@ public class LoadDataBase {
 
         return args -> {
 
-            idiomasService.save(Idiomas.builder().id(1).idioma("español").nivel(Nivel.B1).build());
-
            
 
             becarioInfoService.save(BecarioInfo.builder()
@@ -50,8 +48,12 @@ public class LoadDataBase {
                                 .gender(Gender.MAN)
                                 .center(Center.MURCIA)
                                 .becarioInfo(becarioInfoService.findById(1))
-                                .idiomas(null)
+                                .idiomas(idiomasService.findAll())
                                 .build());
+
+            idiomasService.save(Idiomas.builder().id(1).idioma("español").nivel(Nivel.B1).becario(becarioService.findById(1)).build());
+            idiomasService.save(Idiomas.builder().id(2).idioma("ingles").nivel(Nivel.B2).becario(becarioService.findById(1)).build());     
+           
 
 
 

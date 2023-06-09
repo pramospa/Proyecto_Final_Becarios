@@ -11,7 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,8 +36,8 @@ private int id;
 
  
 
-// @NotNull(message = "El idioma no puede ser nulo")
-// @NotBlank(message = "El idioma es requerido")
+@NotNull(message = "El idioma no puede ser nulo")
+@NotBlank(message = "El idioma es requerido")
 @Size(min = 1, max= 30, message = "El idioma no puede tener menos de 1 caracter ni mas de 30")
 private String idioma;
 
