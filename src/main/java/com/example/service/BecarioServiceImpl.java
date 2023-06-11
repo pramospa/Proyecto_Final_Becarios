@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.BecarioDao;
 import com.example.entities.Becario;
@@ -35,12 +36,14 @@ public class BecarioServiceImpl implements BecarioService {
     }
 
     @Override
+    @Transactional
     public Becario save(Becario becario) {
         return becarioDao.save(becario);
         
     }
 
     @Override
+    @Transactional
     public void delete(Becario becario) {
         becarioDao.delete(becario);
         

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -51,8 +52,7 @@ public class BecarioInfo implements Serializable {
    
     private LocalDate finishDate;
    
-    // @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
-  
+    @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
     @Enumerated(EnumType.STRING)
     private EducationCenter educationCenter;
     public enum EducationCenter {
@@ -63,8 +63,8 @@ public class BecarioInfo implements Serializable {
     @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
     private String nameCenter;
 
-    @OneToOne(fetch = FetchType.LAZY)
-   // @NotNull(message = "La informacion del becario tiene que estar asociada a un becario")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+   // @JoinColumn(name = "becario_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 

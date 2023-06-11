@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entities.Becario;
@@ -54,6 +53,48 @@ public class BecarioController {
         }
 
         return responseEntity;
+    }
+
+    @GetMapping("/{id}")
+
+    public ResponseEntity<Map<String, Object>> findByIdBecario(
+            @PathVariable(name = "id", required = true) Integer idBecario) {
+
+        ResponseEntity<Map<String, Object>> responseEntity = null;
+
+        Map<String, Object> responseAsMap = new HashMap<>();
+
+        try {
+
+            Becario becario = becarioService.findById(idBecario);
+
+            if (becario != null) {
+                String successMessage = "Se ha encontrado el becario con ID: " + idBecario;
+
+                responseAsMap.put("mensaje: ", successMessage);
+                responseAsMap.put("becario: ", becario);
+                responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
+
+            } else {
+
+                String notFoundMessage = "No se ha encontrado el becario con el ID: " + idBecario;
+
+                responseAsMap.put("mensaje: ", notFoundMessage);
+                responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.NOT_FOUND);
+
+            }
+
+        } catch (DataAccessException e) {
+
+            String errorMessage = "Error grave, y la causa mas probable es: " + e.getMostSpecificCause();
+
+            responseAsMap.put("error grave:", errorMessage);
+            responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+
+        return responseEntity;
+
     }
 
     @PostMapping
@@ -179,5 +220,4 @@ public class BecarioController {
 
     }
 
-    
 }

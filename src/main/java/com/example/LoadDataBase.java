@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import com.example.entities.Becario;
 import com.example.entities.BecarioInfo;
 import com.example.entities.Idiomas;
+import com.example.entities.Language;
 import com.example.entities.Nivel;
 import com.example.entities.Becario.Center;
 import com.example.entities.Becario.Gender;
@@ -27,18 +28,41 @@ public class LoadDataBase {
                                          IdiomasService idiomasService){
 
         return args -> {
-
-           
+            becarioInfoService.save(BecarioInfo.builder()
+                                 .id(1)
+                                 .degreeFP("fontanero")
+                                 .title("Fontaneria Avanzada")
+                                 .startDate(LocalDate.of(2020, 03, 03))
+                                 .finishDate(LocalDate.of(2023, 01, 01))
+                                 .educationCenter(EducationCenter.IES)
+                                 .nameCenter("IES Cervantes")
+                                 .becario(becarioService.findById(1))
+                                 .build());
 
             becarioInfoService.save(BecarioInfo.builder()
-                                    .id(1)
-                                    .degreeFP("fontanero")
-                                    .title("Fontaneria Avanzada")
-                                    .startDate(LocalDate.of(2020, 03, 03))
-                                    .finishDate(LocalDate.of(2023, 01, 01))
-                                    .educationCenter(EducationCenter.IES)
-                                    .nameCenter("IES Cervantes")
-                                    .build());
+                                 .id(2)
+                                 .degreeFP("Electricista")
+                                 .title("Electricidad Basica")
+                                 .startDate(LocalDate.of(2020, 03, 03))
+                                 .finishDate(LocalDate.of(2023, 01, 01))
+                                 .educationCenter(EducationCenter.IES)
+                                 .nameCenter("IES Esparragal")
+                                 .becario(becarioService.findById(2))
+                                 .build());
+
+            becarioInfoService.save(BecarioInfo.builder()
+                                 .id(3)
+                                 .degreeFP("Electromecanica")
+                                 .title("Electromecanica Avanzada")
+                                 .startDate(LocalDate.of(2020, 03, 03))
+                                 .finishDate(LocalDate.of(2023, 01, 01))
+                                 .educationCenter(EducationCenter.UNIVERSITY)
+                                 .nameCenter("Universidad de Murcia")
+                                 .becario(becarioService.findById(3))
+                                 .build());  
+
+           
+                                 
             becarioService.save(Becario.builder()
                                 .id(1)
                                 .name("pepe")
@@ -51,11 +75,60 @@ public class LoadDataBase {
                                 .idiomas(idiomasService.findAll())
                                 .build());
 
-            idiomasService.save(Idiomas.builder().id(1).idioma("español").nivel(Nivel.B1).becario(becarioService.findById(1)).build());
-            idiomasService.save(Idiomas.builder().id(2).idioma("ingles").nivel(Nivel.B2).becario(becarioService.findById(1)).build());     
-           
+            
 
+            becarioService.save(Becario.builder()
+                                .id(2)
+                                .name("pepa")
+                                .surname1("aap")
+                                .surname2("bbp")
+                                .birthday(LocalDate.of(2023, 01, 01))
+                                .gender(Gender.WOMAN)
+                                .center(Center.VALENCIA)
+                                .becarioInfo(becarioInfoService.findById(2))
+                                .idiomas(idiomasService.findAll())
+                                .build());
 
+            becarioService.save(Becario.builder()
+                                .id(3)
+                                .name("pepo")
+                                .surname1("aap")
+                                .surname2("bbp")
+                                .birthday(LocalDate.of(2023, 01, 01))
+                                .gender(Gender.OTHER)
+                                .center(Center.VALENCIA)
+                                .becarioInfo(becarioInfoService.findById(3))
+                                .idiomas(idiomasService.findAll())
+                                .build());
+        
+
+            idiomasService.save(Idiomas.builder()
+                                .id(1)
+                                .language(Language.ENGLISH)
+                                .nivel(Nivel.B1)
+                                .becario(becarioService.findById(1))
+                                .build());
+
+            idiomasService.save(Idiomas.builder()
+                                .id(2)
+                                .language(Language.FRENCH)
+                                .nivel(Nivel.B2)
+                                .becario(becarioService.findById(1))
+                                .build());  
+
+            idiomasService.save(Idiomas.builder()
+                                .id(3)
+                                .language(Language.SPANISH)
+                                .nivel(Nivel.B2)
+                                .becario(becarioService.findById(2))
+                                .build());  
+
+            idiomasService.save(Idiomas.builder()
+                                .id(4)
+                                .language(Language.ENGLISH)
+                                .nivel(Nivel.A1)
+                                .becario(becarioService.findById(3))
+                                .build());      
 
         };
     }

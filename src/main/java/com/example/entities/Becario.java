@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -58,25 +57,26 @@ public class Becario implements Serializable {
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
-    //@NotNull(message = "El genero no puede ser nulo")
+    @NotNull(message = "El genero no puede ser nulo")
     private Gender gender;
     public enum Gender {
         MAN, WOMAN, NONBINARY, OTHER
     }
 
     @Enumerated(EnumType.STRING)
-    //@NotNull(message = "El centro de procedencia no puede ser nulo")
+    @NotNull(message = "El centro de procedencia no puede ser nulo")
     private Center center;
     public enum Center {
         MURCIA, VALENCIA
     }
    
-    @OneToOne(fetch = FetchType.LAZY) //, cascade = CascadeType.PERSIST, mappedBy = "becario")
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+   // @JsonIgnore
     private BecarioInfo becarioInfo;
 
-    @OneToMany(fetch = FetchType.LAZY) // , cascade = CascadeType.PERSIST, mappedBy = "becario")
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "becario")
+    @JsonManagedReference
+    //@JsonIgnore
     private List<Idiomas> idiomas;
 
 }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.BecarioInfoDao;
 import com.example.entities.Becario;
@@ -15,6 +16,7 @@ public class BecarioInfoServiceImpl implements BecarioInfoService {
     private final BecarioInfoDao becarioInfoDao;
    
     @Override
+    @Transactional
     public void save(BecarioInfo becarioInfo) {
         becarioInfoDao.save(becarioInfo);
         

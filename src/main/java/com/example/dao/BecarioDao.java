@@ -21,7 +21,7 @@ public interface BecarioDao extends JpaRepository<Becario, Integer> {
     @Query(value = "select b from Becario b left join fetch b.becarioInfo where b.surname1 = :surname1")
     public List<Becario> findBySurname1(String surname1);
 
-    @Query(value = "select b from Becario b left join fetch b.becarioInfo")
+    @Query(value = "select b from Becario b left join fetch b.becarioInfo left join fetch b.idiomas")
     public List<Becario> findAll(Sort sort);
 
 
