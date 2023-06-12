@@ -54,5 +54,25 @@ public class BecarioServiceImpl implements BecarioService {
         return becarioDao.findAll(sort);
         
     }
+
+    @Override
+    public List<Object> findFilteredBecario() {
+        return becarioDao.findFilteredBecario();
+    }
+
+    @Override
+    public List<Object> filterById(int id) {
+        return becarioDao.filterById(id);
+    }
+
+    @Override
+    public List<Object> filterByName(String name) {
+         return becarioDao.filterByName(name);
+    }
+
+    @Override
+    public List<Object> filterBySurname1(String surname1) {
+          return becarioDao.filterBySurname1(surname1);
+    }
     
 }

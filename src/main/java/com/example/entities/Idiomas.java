@@ -47,7 +47,6 @@ private Nivel nivel;
 
 
 @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonBackReference
 private Becario becario;
 

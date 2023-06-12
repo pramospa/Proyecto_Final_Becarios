@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.IdiomasDao;
 import com.example.entities.Idiomas;
@@ -21,6 +22,7 @@ public class IdiomasServiceImpl implements IdiomasService{
     }
 
     @Override
+    @Transactional
     public void save(Idiomas idiomas) {
         idiomasDao.save(idiomas);
     }

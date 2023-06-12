@@ -64,7 +64,6 @@ public class BecarioInfo implements Serializable {
     private String nameCenter;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-   // @JoinColumn(name = "becario_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 

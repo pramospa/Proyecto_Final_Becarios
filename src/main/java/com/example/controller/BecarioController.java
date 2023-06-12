@@ -30,7 +30,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/becarios")
 @RequiredArgsConstructor
-
 public class BecarioController {
 
     @Autowired

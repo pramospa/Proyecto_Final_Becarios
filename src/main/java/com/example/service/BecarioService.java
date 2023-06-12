@@ -15,5 +15,10 @@ public interface BecarioService {
     public Becario save(Becario becario);
     public void delete(Becario becario);
     public List<Becario> findAll(Sort sort);
+    public List<Object> findFilteredBecario();
+    public List<Object> filterById(int id);
+    public List<Object> filterByName (String name);
+    public List<Object> filterBySurname1(String surname1);
+
 
 }
