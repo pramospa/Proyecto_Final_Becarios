@@ -3,8 +3,7 @@ package com.example.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -63,8 +62,10 @@ public class BecarioInfo implements Serializable {
     @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
     private String nameCenter;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+   // @JoinColumn(name = "becario_id")
+   @JsonBackReference 
+   //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 
 }

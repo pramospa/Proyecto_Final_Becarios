@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.BecarioInfoDao;
-import com.example.entities.Becario;
 import com.example.entities.BecarioInfo;
 
 import lombok.RequiredArgsConstructor;

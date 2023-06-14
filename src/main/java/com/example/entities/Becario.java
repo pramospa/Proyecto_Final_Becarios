@@ -70,13 +70,23 @@ public class Becario implements Serializable {
         MURCIA, VALENCIA
     }
    
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @NotNull(message = "La foto del producto es requerida")
+    private String imagenProducto;
+    
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "becario")
    // @JsonIgnore
+    @JsonManagedReference
     private BecarioInfo becarioInfo;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "becario")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "becario")
     @JsonManagedReference
     //@JsonIgnore
     private List<Idiomas> idiomas;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "becario")
+    @JsonManagedReference
+    //@JsonIgnore
+    private List<Feedback> feedback;
+
 }
+

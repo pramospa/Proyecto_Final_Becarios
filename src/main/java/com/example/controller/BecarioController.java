@@ -1,15 +1,20 @@
 package com.example.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,10 +24,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entities.Becario;
+import com.example.model.FileUploadResponse;
 import com.example.service.BecarioService;
+import com.example.service.FeedbackService;
+import com.example.utilities.FileDownloadUtil;
+import com.example.utilities.FileUploadUtil;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +42,15 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/becarios")
 @RequiredArgsConstructor
 public class BecarioController {
-
     @Autowired
     private BecarioService becarioService;
+
+    private final FileUploadUtil fileUploadUtil;
+
+    private final FileDownloadUtil fileDownloadUtil;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     @GetMapping
     public ResponseEntity<List<Becario>> findAll() {
@@ -96,8 +113,13 @@ public class BecarioController {
 
     }
 
-    @PostMapping
-    public ResponseEntity<Map<String, Object>> saveBecario(@Valid @RequestBody Becario becario, BindingResult results) {
+    @PostMapping(consumes = "multipart/form-data")
+    @Transactional
+    public ResponseEntity<Map<String, Object>> saveBecario(
+        @Valid
+        @RequestPart(name = "becario") Becario becario, 
+        BindingResult results,  
+        @RequestPart(name = "file") MultipartFile file) throws IOException {
 
         Map<String, Object> responseAsMap = new HashMap<>();
 
@@ -118,6 +140,21 @@ public class BecarioController {
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.BAD_REQUEST);
 
             return responseEntity;
+
+        }
+        if(!file.isEmpty()) {
+            String fileCode = fileUploadUtil.saveFile(file.getOriginalFilename(), file);
+            becario.setImagenProducto(fileCode+ "-" + file.getOriginalFilename());
+
+            FileUploadResponse fileUploadResponse = FileUploadResponse
+                       .builder()
+                       .fileName(fileCode + "-" + file.getOriginalFilename())
+                       .downloadURI("/productos/downloadFile/" 
+                                 + fileCode + "-" + file.getOriginalFilename())
+                       .size(file.getSize())
+                       .build();
+            
+            responseAsMap.put("Foto becario: ", fileUploadResponse);           
 
         }
 
@@ -219,4 +256,83 @@ public class BecarioController {
 
     }
 
+    @GetMapping("/downloadFile/{fileCode}")
+    public ResponseEntity<?> downloadFile(@PathVariable(name = "fileCode") String fileCode) {
+
+        Resource resource = null;
+
+        try {
+            resource = fileDownloadUtil.getFileAsResource(fileCode);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+        if (resource == null) {
+            return new ResponseEntity<>("File not found ", HttpStatus.NOT_FOUND);
+        }
+
+        // 8 byte un 
+        String contentType = "application/octet-stream";
+        
+        //attachment fichero adjunto
+        String headerValue = "attachment; filename=\"" + resource.getFilename() + "\"";
+
+        return ResponseEntity.ok()
+                            .contentType(MediaType.parseMediaType(contentType))
+                            .header(HttpHeaders.CONTENT_DISPOSITION, headerValue)
+                            .body(resource);
+
+    }
+
+    // ESTE FEEDBACK
+
+    //     @PutMapping("/id/{id}")
+    //     public ResponseEntity<Map<String, Object>> addFeedback(@Valid @RequestBody Becario becario, BindingResult results, 
+    //     @PathVariable(name = "id") Integer idBecario) {
+
+    //     Map<String, Object> responseAsMap = new HashMap<>();
+
+    //     ResponseEntity<Map<String, Object>> responseEntity = null;
+
+    //     if (results.hasErrors()) {
+
+    //         List<String> mensajesError = new ArrayList<>();
+    //         List<ObjectError> objectErrors = results.getAllErrors();
+
+    //         for (ObjectError objectError : objectErrors) {
+    //             mensajesError.add(objectError.getDefaultMessage());
+
+    //         }
+
+    //         responseAsMap.put("errores: ", mensajesError);
+    //         responseAsMap.put("feedback: ", becario);
+    //         responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.BAD_REQUEST);
+
+    //         return responseEntity;
+
+    //     }
+
+    // try {
+
+    //         becario.setId(idBecario);
+    //         Feedback feedbackPersistido =
+    //         String successMessage = "El Feedback se ha guardado exitosamente";
+    //         responseAsMap.put("mensaje: ", successMessage);
+    //         responseAsMap.put("feedback: ", feedbackPersistido);
+    //         responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
+
+    //     } catch (DataAccessException e) {
+
+    //         String errorMessage = "El Feedback no se pudo guardar y la causa mas probable del error es: " +
+    //                 e.getMostSpecificCause();
+
+    //         responseAsMap.put("error: ", errorMessage);
+    //         responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    //     }
+
+    //     return responseEntity;
+
+    // }
+      
 }

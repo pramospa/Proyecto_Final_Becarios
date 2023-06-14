@@ -74,5 +74,11 @@ public class BecarioServiceImpl implements BecarioService {
     public List<Object> filterBySurname1(String surname1) {
           return becarioDao.filterBySurname1(surname1);
     }
+
+    @Override
+    public List<Object> filterByFeedbackId(int id) {
+        return becarioDao.filterByFeedbackId(id);
+    }
     
 }
+

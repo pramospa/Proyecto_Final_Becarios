@@ -19,6 +19,7 @@ public interface BecarioService {
     public List<Object> filterById(int id);
     public List<Object> filterByName (String name);
     public List<Object> filterBySurname1(String surname1);
-
+    public List<Object> filterByFeedbackId(int id);
 
 }
+

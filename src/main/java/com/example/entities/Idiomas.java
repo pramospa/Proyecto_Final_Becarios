@@ -3,7 +3,6 @@ package com.example.entities;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -46,8 +45,10 @@ private Language language;
 private Nivel nivel;
 
 
-@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonBackReference
 private Becario becario;
 
 }
+
