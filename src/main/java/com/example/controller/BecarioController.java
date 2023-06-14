@@ -284,55 +284,6 @@ public class BecarioController {
 
     }
 
-    // ESTE FEEDBACK
-
-    //     @PutMapping("/id/{id}")
-    //     public ResponseEntity<Map<String, Object>> addFeedback(@Valid @RequestBody Becario becario, BindingResult results, 
-    //     @PathVariable(name = "id") Integer idBecario) {
-
-    //     Map<String, Object> responseAsMap = new HashMap<>();
-
-    //     ResponseEntity<Map<String, Object>> responseEntity = null;
-
-    //     if (results.hasErrors()) {
-
-    //         List<String> mensajesError = new ArrayList<>();
-    //         List<ObjectError> objectErrors = results.getAllErrors();
-
-    //         for (ObjectError objectError : objectErrors) {
-    //             mensajesError.add(objectError.getDefaultMessage());
-
-    //         }
-
-    //         responseAsMap.put("errores: ", mensajesError);
-    //         responseAsMap.put("feedback: ", becario);
-    //         responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.BAD_REQUEST);
-
-    //         return responseEntity;
-
-    //     }
-
-    // try {
-
-    //         becario.setId(idBecario);
-    //         Feedback feedbackPersistido =
-    //         String successMessage = "El Feedback se ha guardado exitosamente";
-    //         responseAsMap.put("mensaje: ", successMessage);
-    //         responseAsMap.put("feedback: ", feedbackPersistido);
-    //         responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
-
-    //     } catch (DataAccessException e) {
-
-    //         String errorMessage = "El Feedback no se pudo guardar y la causa mas probable del error es: " +
-    //                 e.getMostSpecificCause();
-
-    //         responseAsMap.put("error: ", errorMessage);
-    //         responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
-
-    //     }
-
-    //     return responseEntity;
-
-    // }
+   
       
 }
