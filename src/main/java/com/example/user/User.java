@@ -36,3 +36,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 }
+
+/*
+ * "firstName":"patricia",
+ * "lastName":"ramos",
+ * "email":"prp@gmail",
+ * "password":"Temp2023$$",
+ * "role":"ADMIN"
+ */

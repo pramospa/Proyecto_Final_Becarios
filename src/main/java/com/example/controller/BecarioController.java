@@ -119,7 +119,7 @@ public class BecarioController {
         @Valid
         @RequestPart(name = "becario") Becario becario, 
         BindingResult results,  
-        @RequestPart(name = "file") MultipartFile file) throws IOException {
+        @RequestPart(name = "file", required = false) MultipartFile file) throws IOException {
 
         Map<String, Object> responseAsMap = new HashMap<>();
 

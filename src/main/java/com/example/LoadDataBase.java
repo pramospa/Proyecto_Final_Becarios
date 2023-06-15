@@ -21,6 +21,9 @@ import com.example.service.BecarioInfoService;
 import com.example.service.BecarioService;
 import com.example.service.FeedbackService;
 import com.example.service.IdiomasService;
+import com.example.user.Role;
+import com.example.user.User;
+import com.example.user.UserServices;
 
 
 @Configuration
@@ -28,7 +31,8 @@ public class LoadDataBase {
 
     @Bean
     public CommandLineRunner sampleData(BecarioService becarioService, BecarioInfoService becarioInfoService,
-                                         IdiomasService idiomasService, FeedbackService feedbackService){
+                                         IdiomasService idiomasService, FeedbackService feedbackService,
+                                         UserServices userServices){
 
         return args -> {
             becarioService.save(Becario.builder()
@@ -152,9 +156,36 @@ public class LoadDataBase {
                                     .hrUser("Manolita")
                                     .comments("Ha trabajado muy bien, un fiera")
                                     .becario(becarioService.findById(3))
-                                    .build());                     
+                                    .build());  
+                                    
+            
+           
+            userServices.add(User.builder()
+                                    .id(1)
+                                    .firstName("paaa")
+                                    .lastName("aaap")
+                                    .email("paa@gmail.com")
+                                    .password("Temp2023$$")
+                                    .role(Role.ADMIN)
+                                    .build());    
+                                    
+            userServices.add(User.builder()
+                                    .id(2)
+                                    .firstName("peee")
+                                    .lastName("aaap")
+                                    .email("pee@gmail.com")
+                                    .password("Temp2023$$")
+                                    .role(Role.USER_HR)
+                                    .build());      
+            userServices.add(User.builder()
+                                    .id(3)
+                                    .firstName("piii")
+                                    .lastName("aaap")
+                                    .email("pii@gmail.com")
+                                    .password("Temp2023$$")
+                                    .role(Role.ADMIN)
+                                    .build());      
 
-                                
          };
     }
 }

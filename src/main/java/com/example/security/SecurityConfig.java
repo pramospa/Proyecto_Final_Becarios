@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.GET, "/becarios/**", "/filtrobecarios/**").permitAll();
                     auth.requestMatchers("/users/**").permitAll();
-                    auth.requestMatchers(HttpMethod.POST, "/becarios/**", "/filtrobecarios/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST, "/becarios/**").hasAuthority("ADMIN");
                     auth.requestMatchers(HttpMethod.PUT, "/becarios/**", "/filtrobecarios/**").permitAll();
                     auth.requestMatchers(HttpMethod.DELETE, "/becarios/**", "/filtrobecarios/**").hasAuthority("ADMIN");
                     auth.anyRequest().authenticated();
