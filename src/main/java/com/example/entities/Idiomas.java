@@ -45,10 +45,9 @@ private Language language;
 private Nivel nivel;
 
 
-@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonBackReference
 private Becario becario;
 
 }
-

@@ -53,7 +53,7 @@ private String hrUser;
 @Size(min = 1, max = 1000, message = "El comentario no puede tener menos de 1 caracteres ni mas de 1000")
 private String comments;
 
-@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonBackReference
 private Becario becario;

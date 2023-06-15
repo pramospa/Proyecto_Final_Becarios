@@ -31,7 +31,7 @@ public class LoadDataBase {
                                          IdiomasService idiomasService, FeedbackService feedbackService){
 
         return args -> {
-           becarioService.save(Becario.builder()
+            becarioService.save(Becario.builder()
                                 .id(1)
                                 .name("pepe")
                                 .surname1("aaaap")
@@ -131,11 +131,11 @@ public class LoadDataBase {
             
             feedbackService.saveFeedback(Feedback.builder()
                                     .id(1)
-                                    .name("pepe")
+                                    .name("pepa")
                                     .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
                                     .hrUser("Manolita")
                                     .comments("Ha trabajado muy bien, un fiera")
-                                    .becario(becarioService.findById(1))
+                                    .becario(becarioService.findById(2))
                                     .build());  
             feedbackService.saveFeedback(Feedback.builder()
                                     .id(2)
@@ -153,8 +153,8 @@ public class LoadDataBase {
                                     .comments("Ha trabajado muy bien, un fiera")
                                     .becario(becarioService.findById(3))
                                     .build());                     
-     
 
-        };
+                                
+         };
     }
 }

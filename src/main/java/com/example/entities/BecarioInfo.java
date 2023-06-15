@@ -62,11 +62,10 @@ public class BecarioInfo implements Serializable {
     @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
     private String nameCenter;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})
    // @JoinColumn(name = "becario_id")
    @JsonBackReference 
    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 
 }
- 

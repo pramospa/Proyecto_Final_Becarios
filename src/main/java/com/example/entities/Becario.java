@@ -17,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -73,20 +74,25 @@ public class Becario implements Serializable {
     @NotNull(message = "La foto del producto es requerida")
     private String imagenProducto;
     
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "becario")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
+    @Valid
    // @JsonIgnore
     @JsonManagedReference
     private BecarioInfo becarioInfo;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "becario")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
+    @Valid
     @JsonManagedReference
+    
     //@JsonIgnore
     private List<Idiomas> idiomas;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "becario")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
+    @Valid
     @JsonManagedReference
     //@JsonIgnore
     private List<Feedback> feedback;
 
 }
+
 
