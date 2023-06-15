@@ -37,40 +37,40 @@ public class LoadDataBase {
         return args -> {
             becarioService.save(Becario.builder()
                                 .id(1)
-                                .name("pepe")
-                                .surname1("aaaap")
-                                .surname2("bbbbp")
-                                .birthday(LocalDate.of(2023, 01, 01))
+                                .name("Antonio")
+                                .surname1("Palao")
+                                .surname2("Vicente")
+                                .birthday(LocalDate.of(1980, 01, 01))
                                 .gender(Gender.MAN)
                                 .center(Center.MURCIA)
-                                .imagenProducto("test.jpeg")
+                                .imagenProducto("stagiaire.jpeg")
                                 .build());
 
             becarioService.save(Becario.builder()
                                 .id(2)
-                                .name("pepa")
-                                .surname1("aap")
-                                .surname2("bbp")
-                                .birthday(LocalDate.of(2023, 01, 01))
+                                .name("Sara")
+                                .surname1("Ortuño")
+                                .surname2("Baeza")
+                                .birthday(LocalDate.of(1969, 9, 01))
                                 .gender(Gender.WOMAN)
                                 .center(Center.VALENCIA)
-                                .imagenProducto("test.jpeg")
+                                .imagenProducto("stagiaire.jpeg")
                                 .build());
 
             becarioService.save(Becario.builder()
                                 .id(3)
-                                .name("pepo")
-                                .surname1("aap")
-                                .surname2("bbp")
-                                .birthday(LocalDate.of(2023, 01, 01))
+                                .name("Pedro")
+                                .surname1("Ramos")
+                                .surname2("Chinchilla")
+                                .birthday(LocalDate.of(2000, 6, 25))
                                 .gender(Gender.OTHER)
                                 .center(Center.VALENCIA)
-                                .imagenProducto("test.jpeg")
+                                .imagenProducto("stagiaire.jpeg")
                                 .build());
                             
             becarioInfoService.save(BecarioInfo.builder()
                                  .id(1)
-                                 .degreeFP("fontanero")
+                                 .degreeFP("Fontaneria")
                                  .title("Fontaneria Avanzada")
                                  .startDate(LocalDate.of(2020, 03, 03))
                                  .finishDate(LocalDate.of(2023, 01, 01))
@@ -81,7 +81,7 @@ public class LoadDataBase {
 
             becarioInfoService.save(BecarioInfo.builder()
                                  .id(2)
-                                 .degreeFP("Electricista")
+                                 .degreeFP("Electricidad")
                                  .title("Electricidad Basica")
                                  .startDate(LocalDate.of(2020, 03, 03))
                                  .finishDate(LocalDate.of(2023, 01, 01))
@@ -100,11 +100,7 @@ public class LoadDataBase {
                                  .nameCenter("Universidad de Murcia")
                                  .becario(becarioService.findById(3))
                                  .build());  
-
-           
-                                 
-            
-
+                 
             idiomasService.save(Idiomas.builder()
                                 .id(1)
                                 .language(Language.ENGLISH)
@@ -135,54 +131,52 @@ public class LoadDataBase {
             
             feedbackService.saveFeedback(Feedback.builder()
                                     .id(1)
-                                    .name("pepa")
+                                    .name("Antonio")
                                     .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
-                                    .hrUser("Manolita")
-                                    .comments("Ha trabajado muy bien, un fiera")
+                                    .hrUser("Irene")
+                                    .comments("Écrire de feedback")
                                     .becario(becarioService.findById(2))
                                     .build());  
             feedbackService.saveFeedback(Feedback.builder()
                                     .id(2)
-                                    .name("pepa")
+                                    .name("Sara")
                                     .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
-                                    .hrUser("Manolita")
-                                    .comments("Ha trabajado muy bien, un fiera")
+                                    .hrUser("Irene")
+                                    .comments("Écrire de feedback")
                                     .becario(becarioService.findById(2))
                                     .build()); 
             feedbackService.saveFeedback(Feedback.builder()
                                     .id(3)
-                                    .name("pepo")
+                                    .name("Pedro")
                                     .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
-                                    .hrUser("Manolita")
-                                    .comments("Ha trabajado muy bien, un fiera")
+                                    .hrUser("Irene")
+                                    .comments("Écrire de feedback")
                                     .becario(becarioService.findById(3))
                                     .build());  
-                                    
-            
-           
+                                               
             userServices.add(User.builder()
                                     .id(1)
-                                    .firstName("paaa")
-                                    .lastName("aaap")
-                                    .email("paa@gmail.com")
-                                    .password("Temp2023$$")
-                                    .role(Role.ADMIN)
+                                    .firstName("user")
+                                    .lastName("ApellidoUser")
+                                    .email("user@email.com")
+                                    .password("12345")
+                                    .role(Role.USER)
                                     .build());    
                                     
             userServices.add(User.builder()
                                     .id(2)
-                                    .firstName("peee")
-                                    .lastName("aaap")
-                                    .email("pee@gmail.com")
-                                    .password("Temp2023$$")
+                                    .firstName("userHR")
+                                    .lastName("ApellidoUserHR")
+                                    .email("userHR@email.com")
+                                    .password("123456")
                                     .role(Role.USER_HR)
                                     .build());      
             userServices.add(User.builder()
                                     .id(3)
-                                    .firstName("piii")
-                                    .lastName("aaap")
-                                    .email("pii@gmail.com")
-                                    .password("Temp2023$$")
+                                    .firstName("admin")
+                                    .lastName("ApellidoAdmin")
+                                    .email("admin@email.com")
+                                    .password("admin")
                                     .role(Role.ADMIN)
                                     .build());      
 
