@@ -15,11 +15,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "feedback")
@@ -29,33 +29,34 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Feedback implements Serializable {
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-@NotNull(message = "El nombre no puede ser nulo")
-@NotBlank(message = "EL nombre es requerido")
-@Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
-private String name;
+    @NotNull(message = "Le nom ne peut pas être nul")
+    @NotBlank(message = "Le nom est requis")
+    @Size(min = 1, max = 50, message = "Le nom ne peut pas avoir moins de 1 caractères ni plus de 50")
+    private String name;
 
-@NotNull(message = "La fecha del feedback no puede ser nula")
-private LocalDate fechaFeedback;
+    @NotNull(message = "La date de retour ne peut pas être nulle")
+    private LocalDate fechaFeedback;
 
-@NotNull(message = "El HR no puede ser nulo")
-@NotBlank(message = "EL HR es requerido")
-@Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
-private String hrUser;
+    @NotNull(message = "HR ne peut pas être nul")
+    @NotBlank(message = "RH est nécessaire")
+    @Size(min = 1, max = 50, message = "Le nom ne peut pas avoir moins de 1 caractères ni plus de 50")
+    private String hrUser;
 
-@NotNull(message = "El comentario no puede ser nulo")
-@NotBlank(message = "EL comentario es requerido")
-@Size(min = 1, max = 1000, message = "El comentario no puede tener menos de 1 caracteres ni mas de 1000")
-private String comments;
+    @NotNull(message = "Le commentaire ne peut pas être nul")
+    @NotBlank(message = "Le commentaire est requis")
+    @Size(min = 1, max = 1000, message = "Le commentaire ne peut pas avoir moins de 1 caractères ni plus de 1000")
+    private String comments;
 
-@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonBackReference
-private Becario becario;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST,
+            CascadeType.MERGE })
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonBackReference
+    private Becario becario;
 
 }

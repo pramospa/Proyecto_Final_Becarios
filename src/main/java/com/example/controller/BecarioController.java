@@ -42,6 +42,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/becarios")
 @RequiredArgsConstructor
 public class BecarioController {
+
     @Autowired
     private BecarioService becarioService;
 
@@ -59,54 +60,46 @@ public class BecarioController {
         Sort sortByName = Sort.by("name");
 
         ResponseEntity<List<Becario>> responseEntity = null;
-
         try {
+
             becarios = becarioService.findAll(sortByName);
             responseEntity = new ResponseEntity<List<Becario>>(becarios, HttpStatus.OK);
-
         } catch (Exception e) {
+
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
         }
 
         return responseEntity;
+
     }
 
     @GetMapping("/{id}")
-
     public ResponseEntity<Map<String, Object>> findByIdBecario(
             @PathVariable(name = "id", required = true) Integer idBecario) {
 
         ResponseEntity<Map<String, Object>> responseEntity = null;
-
         Map<String, Object> responseAsMap = new HashMap<>();
 
         try {
 
             Becario becario = becarioService.findById(idBecario);
-
             if (becario != null) {
-                String successMessage = "Se ha encontrado el becario con ID: " + idBecario;
 
+                String successMessage = "Le stagiaire a été trouvé avec ID: " + idBecario;
                 responseAsMap.put("mensaje: ", successMessage);
                 responseAsMap.put("becario: ", becario);
                 responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
-
             } else {
-
-                String notFoundMessage = "No se ha encontrado el becario con el ID: " + idBecario;
-
+                String notFoundMessage = "Le stagiaire n'a pas été retrouvé avec ID: " + idBecario;
                 responseAsMap.put("mensaje: ", notFoundMessage);
                 responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.NOT_FOUND);
 
             }
-
         } catch (DataAccessException e) {
-
-            String errorMessage = "Error grave, y la causa mas probable es: " + e.getMostSpecificCause();
-
+            String errorMessage = "Erreur fatale, et la cause la plus probable est: " + e.getMostSpecificCause();
             responseAsMap.put("error grave:", errorMessage);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
 
         return responseEntity;
@@ -116,23 +109,19 @@ public class BecarioController {
     @PostMapping(consumes = "multipart/form-data")
     @Transactional
     public ResponseEntity<Map<String, Object>> saveBecario(
-        @Valid
-        @RequestPart(name = "becario") Becario becario, 
-        BindingResult results,  
-        @RequestPart(name = "file", required = false) MultipartFile file) throws IOException {
+
+            @Valid @RequestPart(name = "becario") Becario becario,
+            BindingResult results,
+            @RequestPart(name = "file", required = false) MultipartFile file) throws IOException {
 
         Map<String, Object> responseAsMap = new HashMap<>();
-
         ResponseEntity<Map<String, Object>> responseEntity = null;
-
         if (results.hasErrors()) {
-
             List<String> mensajesError = new ArrayList<>();
             List<ObjectError> objectErrors = results.getAllErrors();
-
             for (ObjectError objectError : objectErrors) {
-                mensajesError.add(objectError.getDefaultMessage());
 
+                mensajesError.add(objectError.getDefaultMessage());
             }
 
             responseAsMap.put("errores: ", mensajesError);
@@ -142,35 +131,35 @@ public class BecarioController {
             return responseEntity;
 
         }
-        if(!file.isEmpty()) {
+
+        if (!file.isEmpty()) {
+
             String fileCode = fileUploadUtil.saveFile(file.getOriginalFilename(), file);
-            becario.setImagenProducto(fileCode+ "-" + file.getOriginalFilename());
+            becario.setImagenProducto(fileCode + "-" + file.getOriginalFilename());
 
             FileUploadResponse fileUploadResponse = FileUploadResponse
-                       .builder()
-                       .fileName(fileCode + "-" + file.getOriginalFilename())
-                       .downloadURI("/productos/downloadFile/" 
-                                 + fileCode + "-" + file.getOriginalFilename())
-                       .size(file.getSize())
-                       .build();
-            
-            responseAsMap.put("Foto becario: ", fileUploadResponse);           
+                    .builder()
+                    .fileName(fileCode + "-" + file.getOriginalFilename())
+                    .downloadURI("/becarios/downloadFile/"
+                            + fileCode + "-" + file.getOriginalFilename())
+                    .size(file.getSize())
+                    .build();
 
+            responseAsMap.put("Photo Stagiaire: ", fileUploadResponse);
         }
 
         try {
 
             Becario becarioPersistido = becarioService.save(becario);
-
-            String successMessage = "El becario se ha creado exitosamente";
-
+            String successMessage = "Le stagiaire a été créé avec succès";
             responseAsMap.put("mensaje: ", successMessage);
             responseAsMap.put("becario: ", becarioPersistido);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.CREATED);
 
         } catch (DataAccessException e) {
 
-            String errorMessage = "El becario no se pudo persistir y la causa mas probable del error es: " +
+            String errorMessage = "Le stagiaire n'a pas pu être conservé et la cause la plus probable de l'erreur est: "
+                    +
                     e.getMostSpecificCause();
 
             responseAsMap.put("error: ", errorMessage);
@@ -189,13 +178,12 @@ public class BecarioController {
 
         Map<String, Object> responseAsMap = new HashMap<>();
         ResponseEntity<Map<String, Object>> responseEntity = null;
-
         if (results.hasErrors()) {
-
             List<String> mensajesError = new ArrayList<>();
             List<ObjectError> objectErrors = results.getAllErrors();
 
             for (ObjectError objectError : objectErrors) {
+
                 mensajesError.add(objectError.getDefaultMessage());
 
             }
@@ -209,17 +197,17 @@ public class BecarioController {
         }
 
         try {
-
             becario.setId(idBecario);
             Becario becarioActualizado = becarioService.save(becario);
-            String successMessage = "El becario se ha actualizado exitosamente";
+            String successMessage = "Le stagiaire a été mis à jour avec succès";
             responseAsMap.put("mensaje: ", successMessage);
             responseAsMap.put("becario: ", becarioActualizado);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
 
         } catch (DataAccessException e) {
 
-            String errorMessage = "El becario no se pudo actualizar y la causa mas probable del error es: " +
+            String errorMessage = "Le stagiaire n'a pas pu être mis à jour et la cause la plus probable de l'erreur est: "
+                    +
                     e.getMostSpecificCause();
 
             responseAsMap.put("error: ", errorMessage);
@@ -236,18 +224,15 @@ public class BecarioController {
 
         ResponseEntity<Map<String, Object>> responseEntity = null;
         Map<String, Object> responseasMap = new HashMap<>();
-
         try {
-
             becarioService.delete(becarioService.findById(idBecario));
-            responseasMap.put("mensaje: ", "El becario se ha eliminado correctamente");
+            responseasMap.put("mensaje: ", "Le stagiaire a été supprimé avec succès");
             responseEntity = new ResponseEntity<Map<String, Object>>(responseasMap, HttpStatus.OK);
 
         } catch (DataAccessException e) {
-
-            responseasMap.put("error grave", "No se ha podido eliminar el becario y la causa mas probable es :" +
-                    e.getMostSpecificCause());
-
+            responseasMap.put("error grave",
+                    "Le stagiaire n'a pas pu être supprimé et la cause la plus probable est :" +
+                            e.getMostSpecificCause());
             responseEntity = new ResponseEntity<Map<String, Object>>(responseasMap, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
@@ -262,25 +247,32 @@ public class BecarioController {
         Resource resource = null;
 
         try {
+
             resource = fileDownloadUtil.getFileAsResource(fileCode);
+
         } catch (IOException e) {
+
             return ResponseEntity.internalServerError().build();
+
         }
 
         if (resource == null) {
+
             return new ResponseEntity<>("File not found ", HttpStatus.NOT_FOUND);
+
         }
 
-        // 8 byte un 
+        // 8 byte un
         String contentType = "application/octet-stream";
-        
-        //attachment fichero adjunto
+
+        // attachment fichero adjunto
         String headerValue = "attachment; filename=\"" + resource.getFilename() + "\"";
 
         return ResponseEntity.ok()
-                            .contentType(MediaType.parseMediaType(contentType))
-                            .header(HttpHeaders.CONTENT_DISPOSITION, headerValue)
-                            .body(resource);
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, headerValue)
+                .body(resource);
 
     }
+
 }

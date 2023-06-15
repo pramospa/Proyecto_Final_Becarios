@@ -27,45 +27,43 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class BecarioInfo implements Serializable {
-
     private final static long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
 
-    @NotNull(message = "El grado de estudios no puede ser nulo")
-    @NotBlank(message = "El grado de estudios del becario es requerido")
+    @NotNull(message = "Le degré d'études ne peut pas être nul")
+    @NotBlank(message = "Le diplôme d'études du boursier est requis")
     private String degreeFP;
-    
 
-    @NotNull(message = "El titulo de estudios no puede ser nulo")
-    @NotBlank(message = "El titulo de estudios del becario es requerido")
+    @NotNull(message = "Le titre des études ne peut être nul")
+    @NotBlank(message = "Le diplôme universitaire est requis")
     private String title;
-   
-    @NotNull(message = "La fecha de inicio no puede ser nula")
+
+    @NotNull(message = "La date de début ne peut pas être nulle")
     private LocalDate startDate;
-   
+
     private LocalDate finishDate;
-   
-    @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
+
+    @NotNull(message = "Le centre éducatif d'origine ne peut être nul")
     @Enumerated(EnumType.STRING)
     private EducationCenter educationCenter;
+
     public enum EducationCenter {
         UNIVERSITY, IES
     }
 
-    @NotNull(message = "El nombre del centro educativo de procedencia no puede ser nulo")
-    @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
+    @NotNull(message = "Le nom du centre éducatif d'origine ne peut pas être nul")
+    @NotBlank(message = "Le nom du centre éducatif d'origine est requis")
     private String nameCenter;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})
-   // @JoinColumn(name = "becario_id")
-   @JsonBackReference 
-   //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST,
+            CascadeType.MERGE })
+    // @JoinColumn(name = "becario_id")
+    @JsonBackReference
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Becario becario;
 
 }

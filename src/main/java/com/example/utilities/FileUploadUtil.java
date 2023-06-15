@@ -13,24 +13,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class FileUploadUtil {
-    
-public String saveFile(String fileName, MultipartFile multipartFile)
-    throws IOException {
-    Path uploadPath = Paths.get("Files-Upload");
+
+    public String saveFile(String fileName, MultipartFile multipartFile)
+            throws IOException {
+        Path uploadPath = Paths.get("Files-Upload");
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
-    String fileCode = RandomStringUtils.randomAlphanumeric(8);
+        String fileCode = RandomStringUtils.randomAlphanumeric(8);
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
             Path filePath = uploadPath.resolve(fileCode + "-" + fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
-            throw new IOException("No se puede guardar la foto: " + fileName, ioe);
-        } 
+            throw new IOException("Impossible d'enregistrer la photo " + fileName, ioe);
+        }
 
-    return fileCode;
+        return fileCode;
     }
 }

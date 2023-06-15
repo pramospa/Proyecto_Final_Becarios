@@ -22,11 +22,10 @@ public class UserServiceImpl implements UserServices {
     public User add(User user) {
         Optional<User> theUser = userRepository.findByEmail(user.getEmail());
 
-        if(theUser.isPresent()) {
+        if (theUser.isPresent()) {
             // Deberiamos devolver una exception personalizada
 
-            //throw new ResourceNotFoundException("ya existe user con dicho email");
-            
+            // throw new ResourceNotFoundException("ya existe user con dicho email");
 
         }
 
@@ -48,26 +47,25 @@ public class UserServiceImpl implements UserServices {
     @Override
     public User findByEmail(String email) {
         return userRepository
-            .findByEmail(email)
-            .orElseThrow(() -> 
-               new UsernameNotFoundException("No existe el usuario con el email: " + email));
+                .findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("L'utilisateur avec l'email n'existe pas: " + email));
     }
 
     @Override
     public User update(User user) {
 
         User existingUser = userRepository.findByEmail(user.getEmail())
-            .orElseThrow(() -> new UsernameNotFoundException("No existe user con dicho email"));
+                .orElseThrow(() -> new UsernameNotFoundException("Il n'y a pas d'utilisateur avec cet e-mail"));
 
-            existingUser.setFirstName(user.getFirstName());
-            existingUser.setLastName(user.getLastName());
-            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
-            existingUser.setRole(user.getRole());
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        existingUser.setRole(user.getRole());
 
-            User userUpdated = userRepository.save(existingUser);
+        User userUpdated = userRepository.save(existingUser);
 
-            return userUpdated;
-        
+        return userUpdated;
+
     }
-        
+
 }

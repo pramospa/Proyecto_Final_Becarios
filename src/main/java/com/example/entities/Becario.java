@@ -3,9 +3,7 @@ package com.example.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,68 +29,67 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Becario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    
-    @NotNull(message = "El nombre no puede ser nulo")
-    @NotBlank(message = "EL nombre del becario es requerido")
-    @Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
+
+    @NotNull(message = "Le nom ne peut pas être nul")
+    @NotBlank(message = "Le nom du boursier est requis")
+    @Size(min = 1, max = 50, message = "Le nom ne peut pas avoir moins de 1 caractères ni plus de 50")
     private String name;
-    
-    @NotNull(message = "El apellido no puede ser nulo")
-    @NotBlank(message = "EL apellido del becario es requerido")
-    @Size(min = 1, max = 50, message = "El apellido no puede tener menos de 1 caracteres ni mas de 50")
+
+    @NotNull(message = "Le nom de famille ne peut paas être nul")
+    @NotBlank(message = "Le nom de famille du boursier est requis")
+    @Size(min = 1, max = 50, message = "Le nom de famille ne peut pas avoir moins de 1 caractères ni plus de 50")
     private String surname1;
-   
+
     private String surname2;
-    
-    @NotNull(message = "La fecha de nacimiento no puede ser nula")
+
+    @NotNull(message = "La date de naissance ne peut pas être nulle")
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "El genero no puede ser nulo")
+    @NotNull(message = "Le sexe ne peut pas être nul")
     private Gender gender;
+
     public enum Gender {
         MAN, WOMAN, NONBINARY, OTHER
     }
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "El centro de procedencia no puede ser nulo")
+    @NotNull(message = "Le centre d'origine ne peut pas être nul")
     private Center center;
+
     public enum Center {
         MURCIA, VALENCIA
     }
-   
-    @NotNull(message = "La foto del producto es requerida")
+
+    @NotNull(message = "La photo du produit est requise")
     private String imagenProducto;
-    
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST,
+            CascadeType.MERGE }, mappedBy = "becario")
     @Valid
-   // @JsonIgnore
+    // @JsonIgnore
     @JsonManagedReference
     private BecarioInfo becarioInfo;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST,
+            CascadeType.MERGE }, mappedBy = "becario")
     @Valid
     @JsonManagedReference
-    
-    //@JsonIgnore
+    // @JsonIgnore
     private List<Idiomas> idiomas;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST,
+            CascadeType.MERGE }, mappedBy = "becario")
     @Valid
     @JsonManagedReference
-    //@JsonIgnore
+    // @JsonIgnore
     private List<Feedback> feedback;
 
 }
-
-

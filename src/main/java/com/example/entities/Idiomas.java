@@ -1,7 +1,6 @@
 package com.example.entities;
 
 import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,36 +17,31 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "idiomas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class Idiomas implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
- 
+    @NotNull(message = "La langue ne peut pas être nulle")
+    @Enumerated(EnumType.STRING)
+    private Language language;
 
-@NotNull(message = "El idioma no puede ser nulo")
-@Enumerated(EnumType.STRING)
-private Language language;
+    @NotNull(message = "Le niveau de langue ne peut pas être nul")
+    @Enumerated(EnumType.STRING)
+    private Nivel nivel;
 
-@NotNull(message = "El nivel de idioma no puede ser nulo")
-@Enumerated(EnumType.STRING)
-private Nivel nivel;
-
-
-@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonBackReference
-private Becario becario;
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST,
+            CascadeType.MERGE })
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonBackReference
+    private Becario becario;
 }
