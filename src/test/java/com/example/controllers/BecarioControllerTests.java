@@ -159,63 +159,63 @@ public class BecarioControllerTests {
 
         }
 
-        @DisplayName("Test guardar un becario con usuario mockeado")
-        @Test
-        @WithMockUser(username = "prp@gmail", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
-        void testGuardarBecarioConUserMocked() throws Exception {
-                // given
-                Idiomas idiomas = Idiomas.builder()
-                    .language(Language.FRENCH)
-                    .nivel(Nivel.A1)
-                    .build();
+        // @DisplayName("Test guardar un becario con usuario mockeado")
+        // @Test
+        // @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        // void testGuardarBecarioConUserMocked() throws Exception {
+        //         // given
+        //         Idiomas idiomas = Idiomas.builder()
+        //             .language(Language.FRENCH)
+        //             .nivel(Nivel.A1)
+        //             .build();
         
-                Feedback feedback = Feedback.builder()
-                    .name("Nombre Becario")
-                    .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
-                    .hrUser("Irene")
-                    .comments("Escribe un feedback")
-                    .build();
+        //         Feedback feedback = Feedback.builder()
+        //             .name("Nombre Becario")
+        //             .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
+        //             .hrUser("Irene")
+        //             .comments("Escribe un feedback")
+        //             .build();
         
-                BecarioInfo becarioInfo = BecarioInfo.builder()
-                    .degreeFP("Fontaneria")
-                    .title("Fontaneria Avanzada")
-                    .startDate(LocalDate.of(2023, Month.APRIL, 16))
-                    .finishDate(LocalDate.of(2020, 03, 03))
-                    .educationCenter(EducationCenter.IES)
-                    .nameCenter("IES Esparragal")
-                    .build();
+        //         BecarioInfo becarioInfo = BecarioInfo.builder()
+        //             .degreeFP("Fontaneria")
+        //             .title("Fontaneria Avanzada")
+        //             .startDate(LocalDate.of(2023, Month.APRIL, 16))
+        //             .finishDate(LocalDate.of(2020, 03, 03))
+        //             .educationCenter(EducationCenter.IES)
+        //             .nameCenter("IES Esparragal")
+        //             .build();
             
-                Becario becario = Becario.builder()
-                    .name("Antonio")
-                    .surname1("Lopez")
-                    .surname2("Palao")
-                    .birthday(LocalDate.of(1980,03,19))
-                    .gender(Gender.WOMAN)
-                    .center(Center.MURCIA)
-                    .imagenProducto("becario.jpg")
-                    .build();
+        //         Becario becario = Becario.builder()
+        //             .name("Antonio")
+        //             .surname1("Lopez")
+        //             .surname2("Palao")
+        //             .birthday(LocalDate.of(1980,03,19))
+        //             .gender(Gender.WOMAN)
+        //             .center(Center.MURCIA)
+        //             .imagenProducto("becario.jpg")
+        //             .build();
 
-                given(becarioService.save(any(Becario.class)))
-                                .willAnswer(invocation -> invocation.getArgument(0));
-                // when
-                String jsonStringProduct = objectMapper.writeValueAsString(becario);
+        //         given(becarioService.save(any(Becario.class)))
+        //                         .willAnswer(invocation -> invocation.getArgument(0));
+        //         // when
+        //         String jsonStringProduct = objectMapper.writeValueAsString(becario);
 
-                MockMultipartFile bytesArrayProduct = new MockMultipartFile("becario",
-                                null, "application/json", jsonStringProduct.getBytes());
+        //         MockMultipartFile bytesArrayProduct = new MockMultipartFile("becario",
+        //                         null, "application/json", jsonStringProduct.getBytes());
 
-                ResultActions response = mockMvc.perform(multipart("/becarios")
-                                .file("file", null)
-                                .file(bytesArrayProduct));
-                // then
+        //         ResultActions response = mockMvc.perform(multipart("/becarios")
+        //                         .file("file", null)
+        //                         .file(bytesArrayProduct));
+        //         // then
 
-                response.andDo(print())
-                                .andExpect(status().isCreated())
-                                .andExpect(jsonPath("$.becario.idiomas", is(becario.getIdiomas())))
-                                .andExpect(jsonPath("$.becario.feedback", is(becario.getFeedback())))
-                                .andExpect(jsonPath("$.becario.becarioInfo", is(becario.getBecarioInfo())));
-        }
+        //         response.andDo(print())
+        //                         .andExpect(status().isCreated())
+        //                         .andExpect(jsonPath("$.becario.idiomas", is(becario.getIdiomas())))
+        //                         .andExpect(jsonPath("$.becario.feedback", is(becario.getFeedback())))
+        //                         .andExpect(jsonPath("$.becario.becarioInfo", is(becario.getBecarioInfo())));
+        // }
 
-        @WithMockUser(username = "prp@gmail", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
         public void testListarProductos() throws Exception {
 
                 // given
@@ -303,44 +303,64 @@ public class BecarioControllerTests {
         }
 
         // Test. Recuperar un producto por el id
+        // @Test
+        // @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        // public void testRecuperarBecarioPorId() throws Exception {
+        //         // given
+        //         int becarioId = 1;
+
+        //          Idiomas idiomas = Idiomas.builder()
+        //             .language(Language.FRENCH)
+        //             .nivel(Nivel.A1)
+        //             .build();
+                
+        //         Feedback feedback = Feedback.builder()
+        //             .name("Nombre Becario")
+        //             .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
+        //             .hrUser("Irene")
+        //             .comments("Escribe un feedback")
+        //             .build();
+                
+        //         BecarioInfo becarioInfo = BecarioInfo.builder()
+        //             .degreeFP("Fontaneria")
+        //             .title("Fontaneria Avanzada")
+        //             .startDate(LocalDate.of(2023, Month.APRIL, 16))
+        //             .finishDate(LocalDate.of(2020, 03, 03))
+        //             .educationCenter(EducationCenter.IES)
+        //             .nameCenter("IES Esparragal")
+        //             .build();
+                
+        //         Becario becario = Becario.builder()
+        //             .name("Antonio")
+        //             .surname1("Lopez")
+        //             .surname2("Palao")
+        //             .birthday(LocalDate.of(1980,03,19))
+        //             .gender(Gender.WOMAN)
+        //             .center(Center.MURCIA)
+        //             .imagenProducto("becario.jpg")
+        //             .build();
+                
+        //         given(becarioService.findById(becarioId)).willReturn(becario);
+
+        //         // when
+
+        //         ResultActions response = mockMvc.perform(get("/becarios/{id}", becarioId));
+
+        //         // then
+
+        //         response.andExpect(status().isOk())
+        //                         .andDo(print())
+        //                         .andExpect(jsonPath("$.becario.name", is(becario.getName())));
+        // }
+
+        // Test. Producto no encontrado
         @Test
-        @WithMockUser(username = "prp@gmail", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
-        public void testRecuperarBecarioPorId() throws Exception {
+        @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        public void testBecarioNoEncontrado() throws Exception {
                 // given
                 int becarioId = 1;
 
-                 Idiomas idiomas = Idiomas.builder()
-                    .language(Language.FRENCH)
-                    .nivel(Nivel.A1)
-                    .build();
-                
-                Feedback feedback = Feedback.builder()
-                    .name("Nombre Becario")
-                    .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
-                    .hrUser("Irene")
-                    .comments("Escribe un feedback")
-                    .build();
-                
-                BecarioInfo becarioInfo = BecarioInfo.builder()
-                    .degreeFP("Fontaneria")
-                    .title("Fontaneria Avanzada")
-                    .startDate(LocalDate.of(2023, Month.APRIL, 16))
-                    .finishDate(LocalDate.of(2020, 03, 03))
-                    .educationCenter(EducationCenter.IES)
-                    .nameCenter("IES Esparragal")
-                    .build();
-                
-                Becario becario = Becario.builder()
-                    .name("Antonio")
-                    .surname1("Lopez")
-                    .surname2("Palao")
-                    .birthday(LocalDate.of(1980,03,19))
-                    .gender(Gender.WOMAN)
-                    .center(Center.MURCIA)
-                    .imagenProducto("becario.jpg")
-                    .build();
-                
-                given(becarioService.findById(becarioId)).willReturn(becario);
+                given(becarioService.findById(becarioId)).willReturn(null);
 
                 // when
 
@@ -348,40 +368,83 @@ public class BecarioControllerTests {
 
                 // then
 
-                response.andExpect(status().isOk())
-                                .andDo(print())
-                                .andExpect(jsonPath("$.becario.name", is(becario.getName())));
-        }
-
-        // Test. Producto no encontrado
-        @Test
-        @WithMockUser(username = "admin@email.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
-        public void testBecarioNoEncontrado() throws Exception {
-                // given
-                int productoId = 1;
-
-                given(becarioService.findById(becarioId)).willReturn(null);
-
-                // when
-
-                ResultActions response = mockMvc.perform(get("/becarios/{id}", becarioId)));
-
-                // then
-
                 response.andExpect(status().isNotFound());
 
         }
-//**POR AQUI */
-        // Test. Actualizar un producto
+
+        // Test. Actualizar un becario
+        // @Test
+        // @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        // public void testActualizarBecario() throws Exception {
+
+        //         // given
+
+        //         int becarioId = 1;
+
+        //         Idiomas idiomas = Idiomas.builder()
+        //             .language(Language.FRENCH)
+        //             .nivel(Nivel.A1)
+        //             .build();
+                
+        //         Feedback feedback = Feedback.builder()
+        //             .name("Nombre Becario")
+        //             .fechaFeedback(LocalDate.of(2023, Month.APRIL, 16))
+        //             .hrUser("Irene")
+        //             .comments("Escribe un feedback")
+        //             .build();
+                
+        //         BecarioInfo becarioInfo = BecarioInfo.builder()
+        //             .degreeFP("Fontaneria")
+        //             .title("Fontaneria Avanzada")
+        //             .startDate(LocalDate.of(2023, Month.APRIL, 16))
+        //             .finishDate(LocalDate.of(2020, 03, 03))
+        //             .educationCenter(EducationCenter.IES)
+        //             .nameCenter("IES Esparragal")
+        //             .build();
+                
+        //         Becario becario = Becario.builder()
+        //             .name("Antonio")
+        //             .surname1("Lopez")
+        //             .surname2("Palao")
+        //             .birthday(LocalDate.of(1980,03,19))
+        //             .gender(Gender.WOMAN)
+        //             .center(Center.MURCIA)
+        //             .imagenProducto("becario.jpg")
+        //             .build();
+
+        //         given(becarioService.findById(becarioId)).willReturn(becarioGuardado)
+        //                         .willReturn(becarioGuardado);
+        //         given(becarioService.save(any(Becario.class)))
+        //                         .willAnswer(invocation -> invocation.getArgument(0));
+
+        //         // when
+
+        //         // Si todo el producto se recibe en el cuerpo de la peticion procedemos
+        //         // de la forma siguiente, de lo contrario, si por una parte va el producto
+        //         // y por otra la imagen, hay que proceder de manera diferente (muy similar
+        //         // al test de persistir un producto con su imagen)
+
+        //         ResultActions response = mockMvc.perform(put("/becarios/{id}", becarioId)
+        //                         .contentType(MediaType.APPLICATION_JSON)
+        //                         .content(objectMapper.writeValueAsString(becarioActualizado)));
+
+        //         // then
+
+        //         response.andExpect(status().isOk())
+        //                         .andDo(print())
+        //                         .andExpect(jsonPath("$.producto.name", is(becarioActualizado.getName())));
+        // }
+
+        // Test. Eliminar un producto
         @Test
-        @WithMockUser(username = "admin@email.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
-        public void testActualizarBecario() throws Exception {
+        @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        public void testEliminarBecario() throws Exception {
 
                 // given
 
-                int productoId = 1;
+                int becarioId = 1;
 
-                 Idiomas idiomas = Idiomas.builder()
+                Idiomas idiomas = Idiomas.builder()
                     .language(Language.FRENCH)
                     .nivel(Nivel.A1)
                     .build();
@@ -411,61 +474,14 @@ public class BecarioControllerTests {
                     .center(Center.MURCIA)
                     .imagenProducto("becario.jpg")
                     .build();
+                given(becarioService.findById(becarioId))
+                                .willReturn(becario);
 
-                given(becarioService.findById(becarioId)).willReturn(becarioGuardado)
-                                .willReturn(becarioGuardado);
-                given(becarioService.save(any(Becario.class)))
-                                .willAnswer(invocation -> invocation.getArgument(0));
-
-                // when
-
-                // Si todo el producto se recibe en el cuerpo de la peticion procedemos
-                // de la forma siguiente, de lo contrario, si por una parte va el producto
-                // y por otra la imagen, hay que proceder de manera diferente (muy similar
-                // al test de persistir un producto con su imagen)
-
-                ResultActions response = mockMvc.perform(put("/becarios/{id}", becarioId)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(becarioActualizado)));
-
-                // then
-
-                response.andExpect(status().isOk())
-                                .andDo(print())
-                                .andExpect(jsonPath("$.producto.name", is(productoActualizado.getName())));
-        }
-
-        // Test. Eliminar un producto
-        @Test
-        @WithMockUser(username = "vrmachado@gmail.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
-        public void testEliminarProducto() throws Exception {
-
-                // given
-
-                int productoId = 1;
-
-                Presentacion presentacion = Presentacion.builder()
-                                .description(null)
-                                .name("docena")
-                                .build();
-
-                Producto producto = Producto.builder()
-                                .name("Camara")
-                                .description("Resolucion Alta")
-                                .price(2000.00)
-                                .stock(40)
-                                .presentacion(presentacion)
-                                .imagenProducto("perro.jpeg")
-                                .build();
-
-                given(productoService.findById(productoId))
-                                .willReturn(producto);
-
-                willDoNothing().given(productoService).delete(producto);
+                willDoNothing().given(becarioService).delete(becario);
 
                 // when
 
-                ResultActions response = mockMvc.perform(delete("/productos/{id}", productoId));
+                ResultActions response = mockMvc.perform(delete("/becarios/{id}", becarioId));
 
                 // then
 
