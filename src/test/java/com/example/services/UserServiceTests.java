@@ -40,10 +40,10 @@ public class UserServiceTests {
     void setUp() {
         user = User.builder()
                 .id(1)
-                .firstName("ADMIN")
-                .lastName("ApellidosAdminRafael")
-                .email("admin@email.com")
-                .password("admin")
+                .firstName("Admin")
+                .lastName("ApellidoAdmin")
+                .email("admin@gmail.com")
+                .password("Temp2023$$")
                 .role(Role.ADMIN)
                 .build();
     }
@@ -63,6 +63,7 @@ public class UserServiceTests {
         assertThrows(ResourceNotFoundException.class, () -> {
             userService.add(user);
         });
+
         // Then
         verify(userRepository, never()).save(any(User.class));
 

@@ -50,6 +50,7 @@ import com.example.entities.Nivel;
 import com.example.entities.Becario.Center;
 import com.example.entities.Becario.Gender;
 import com.example.service.BecarioService;
+import com.example.service.BecarioServiceImpl;
 import com.example.utilities.FileDownloadUtil;
 import com.example.utilities.FileUploadUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,7 +87,7 @@ public class BecarioControllerTests {
         // El simulacro o simulacion va a remplazar cualquier bean existente
         // en el contexto de la aplicacion.
         @MockBean
-        private BecarioService becarioService;
+        private BecarioServiceImpl becarioService;
 
         @Autowired
         private ObjectMapper objectMapper;
@@ -160,7 +161,7 @@ public class BecarioControllerTests {
 
         @DisplayName("Test guardar un becario con usuario mockeado")
         @Test
-        @WithMockUser(username = "admin@email.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        @WithMockUser(username = "prp@gmail", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
         void testGuardarBecarioConUserMocked() throws Exception {
                 // given
                 Idiomas idiomas = Idiomas.builder()
@@ -194,7 +195,7 @@ public class BecarioControllerTests {
                     .imagenProducto("becario.jpg")
                     .build();
 
-                given(becarioService.save(any(Producto.class)))
+                given(becarioService.save(any(Becario.class)))
                                 .willAnswer(invocation -> invocation.getArgument(0));
                 // when
                 String jsonStringProduct = objectMapper.writeValueAsString(becario);
@@ -209,11 +210,12 @@ public class BecarioControllerTests {
 
                 response.andDo(print())
                                 .andExpect(status().isCreated())
-                                .andExpect(jsonPath("$.becario.name", is(producto.getName())))
-                                .andExpect(jsonPath("$.producto.description", is(producto.getDescription())));
+                                .andExpect(jsonPath("$.becario.idiomas", is(becario.getIdiomas())))
+                                .andExpect(jsonPath("$.becario.feedback", is(becario.getFeedback())))
+                                .andExpect(jsonPath("$.becario.becarioInfo", is(becario.getBecarioInfo())));
         }
 
-        @WithMockUser(username = "admin@email.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        @WithMockUser(username = "prp@gmail", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
         public void testListarProductos() throws Exception {
 
                 // given
@@ -302,7 +304,7 @@ public class BecarioControllerTests {
 
         // Test. Recuperar un producto por el id
         @Test
-        @WithMockUser(username = "admin@email.com", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
+        @WithMockUser(username = "prp@gmail", authorities = { "ADMIN" }) // puede ser {"ADMIN", "USER"}
         public void testRecuperarBecarioPorId() throws Exception {
                 // given
                 int becarioId = 1;

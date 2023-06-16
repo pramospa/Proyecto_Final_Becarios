@@ -37,10 +37,16 @@ public class User {
     private Role role;
 }
 
-/*
- * "firstName":"patricia",
- * "lastName":"ramos",
- * "email":"prp@gmail",
- * "password":"Temp2023$$",
- * "role":"ADMIN"
+/**
+ * user
+ * user@email.com
+ * 12345
+ * 
+ * userHR
+ * userHR@email.com
+ * 123456
+ * 
+ * admin 
+ * admin@email.com
+ * admin
  */

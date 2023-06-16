@@ -24,15 +24,15 @@ public class UserRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
-    private User userHR;
+    private User user0;
 
     @BeforeEach
     void setUp() {
-        userHR = User.builder()
-                .firstName("UserHR")
-                .lastName("Recursos Humanos")
+        user0 = User.builder()
+                .firstName("Test User 0")
+                .lastName("Machado")
                 .password("123456")
-                .email("userHR0@email.com")
+                .email("user0@gmail.com")
                 .role(Role.USER)
                 .build();
     }
@@ -44,17 +44,17 @@ public class UserRepositoryTests {
 
         // given
 
-        User user1 = User.builder()
+        User user = User.builder()
                 .firstName("Test User 1")
-                .lastName("Apellidos1")
+                .lastName("Machado")
                 .password("123456")
-                .email("user1@email.com")
+                .email("v@gmail.com")
                 .role(Role.USER)
                 .build();
 
         // when
 
-        User userAdded = userRepository.save(user1);
+        User userAdded = userRepository.save(user);
 
         // then
 
@@ -70,13 +70,13 @@ public class UserRepositoryTests {
         // given
         User user1 = User.builder()
                 .firstName("Test User 1")
-                .lastName("Apellido1")
+                .lastName("Machado")
                 .password("123456")
-                .email("user1@email.com")
+                .email("v@gmail.com")
                 .role(Role.USER)
                 .build();
 
-        userRepository.save(userHR);
+        userRepository.save(user0);
         userRepository.save(user1);
 
         // Dado los empleados guardados
@@ -87,18 +87,18 @@ public class UserRepositoryTests {
         assertThat(usuarios).isNotNull();
         assertThat(usuarios.size()).isEqualTo(2);
     }
-    
+
     @Test
     @DisplayName("Test para recuperar un user por su ID")
     public void findUserById() {
 
         // given
 
-        userRepository.save(userHR);
+        userRepository.save(user0);
 
         // when
 
-        User user = userRepository.findById(userHR.getId()).get();
+        User user = userRepository.findById(user0.getId()).get();
 
         // then
 
@@ -112,22 +112,22 @@ public class UserRepositoryTests {
 
         // given
 
-        userRepository.save(userHR);
+        userRepository.save(user0);
 
         // when
 
-        User userGuardado = userRepository.findByEmail(userHR.getEmail()).get();
+        User userGuardado = userRepository.findByEmail(user0.getEmail()).get();
 
-        userGuardado.setLastName("Irene");
-        userGuardado.setFirstName("Lopez");
-        userGuardado.setEmail("irene.lopez@email.com");
+        userGuardado.setLastName("Perico");
+        userGuardado.setFirstName("Juan");
+        userGuardado.setEmail("jp@gg.com");
 
         User userUpdated = userRepository.save(userGuardado);
 
         // then
 
-        assertThat(userUpdated.getEmail()).isEqualTo("irene.lopez@email.com");
-        assertThat(userUpdated.getFirstName()).isEqualTo("Lopez");
+        assertThat(userUpdated.getEmail()).isEqualTo("jp@gg.com");
+        assertThat(userUpdated.getFirstName()).isEqualTo("Juan");
 
     }
 
@@ -136,15 +136,16 @@ public class UserRepositoryTests {
     public void testDeleteUser() {
 
         // given
-        userRepository.save(userHR);
+        userRepository.save(user0);
 
         // when
-        userRepository.delete(userHR);
-        Optional<User> optionalUser = userRepository.findByEmail(userHR.getEmail());
+        userRepository.delete(user0);
+        Optional<User> optionalUser = userRepository.findByEmail(user0.getEmail());
 
         // then
         assertThat(optionalUser).isEmpty();
     }
 }
+
 
 

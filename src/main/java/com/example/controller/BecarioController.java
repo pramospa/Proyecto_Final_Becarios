@@ -31,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.entities.Becario;
 import com.example.model.FileUploadResponse;
 import com.example.service.BecarioService;
-import com.example.service.FeedbackService;
 import com.example.utilities.FileDownloadUtil;
 import com.example.utilities.FileUploadUtil;
 
@@ -49,9 +48,6 @@ public class BecarioController {
     private final FileUploadUtil fileUploadUtil;
 
     private final FileDownloadUtil fileDownloadUtil;
-
-    @Autowired
-    private FeedbackService feedbackService;
 
     @GetMapping
     public ResponseEntity<List<Becario>> findAll() {

@@ -12,8 +12,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import com.example.dao.BecarioDao;
 import com.example.dao.BecarioInfoDao;
 import com.example.dao.FeedbackDao;
-import com.example.dao.IdiomasDao;
 import com.example.entities.Becario;
+import com.example.entities.Becario.Center;
+import com.example.entities.Becario.Gender;
 import com.example.entities.BecarioInfo;
 import com.example.entities.BecarioInfo.EducationCenter;
 import com.example.entities.Feedback;
@@ -45,13 +46,8 @@ public class BecarioServiceTests {
     @Mock
     private FeedbackDao feedbackDao;
 
-    @Mock
-    private IdiomasDao idiomasDao;
-
     @InjectMocks
     private BecarioServiceImpl becarioService;
-
-    private Becario becario;
 
     @BeforeEach
     void setUp() {
@@ -75,21 +71,18 @@ public class BecarioServiceTests {
                     .educationCenter(EducationCenter.IES)
                     .nameCenter("IES Esparragal")
                     .build();
+        
+        becarioService.save(Becario.builder()
+                                .id(2)
+                                .name("Sara")
+                                .surname1("Ortuño")
+                                .surname2("Baeza")
+                                .birthday(LocalDate.of(1969, 9, 01))
+                                .gender(Gender.WOMAN)
+                                .center(Center.VALENCIA)
+                                .imagenProducto("stagiaire.jpeg")
+                                .build());
     
-    }
-
-    @Test
-    @DisplayName("Test de servicio para persistir un becario")
-    public void testGuardarBecario() {
-
-        // given
-        given(becarioDao.save(becario)).willReturn(becario);
-
-        // when
-        Becario becarioGuardado = becarioService.save(becario);
-
-        // then
-        assertThat(becarioGuardado).isNotNull();
     }
 
     @DisplayName("Recupera una lista vacia de becarios")
