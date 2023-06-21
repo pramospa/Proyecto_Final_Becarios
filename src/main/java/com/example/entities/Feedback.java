@@ -35,21 +35,21 @@ private static final long serialVersionUID = 1L;
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
 
-@NotNull(message = "El nombre no puede ser nulo")
-@NotBlank(message = "EL nombre es requerido")
+@NotNull(message = "Le nom ne peut etre nul et non avenu")
+@NotBlank(message = "Le nom est requis")
 @Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
 private String name;
 
-@NotNull(message = "La fecha del feedback no puede ser nula")
+@NotNull(message = "La date du retour d'information ne peut etre nulle et non avenue")
 private LocalDate fechaFeedback;
 
-@NotNull(message = "El HR no puede ser nulo")
-@NotBlank(message = "EL HR es requerido")
+@NotNull(message = "Le RH ne peut etre nul et non avenu")
+@NotBlank(message = "Le RH est requis")
 @Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
 private String hrUser;
 
-@NotNull(message = "El comentario no puede ser nulo")
-@NotBlank(message = "EL comentario es requerido")
+@NotNull(message = "Le commentaire ne peut pas etre invalide")
+@NotBlank(message = "Le commentaire est requisSSS")
 @Size(min = 1, max = 1000, message = "El comentario no puede tener menos de 1 caracteres ni mas de 1000")
 private String comments;
 

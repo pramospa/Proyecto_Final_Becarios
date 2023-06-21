@@ -36,11 +36,11 @@ private int id;
 
  
 
-@NotNull(message = "El idioma no puede ser nulo")
+@NotNull(message = "La langue ne peut etre nulle et non avenue")
 @Enumerated(EnumType.STRING)
 private Language language;
 
-@NotNull(message = "El nivel de idioma no puede ser nulo")
+@NotNull(message = "Le niveau de langue ne peut pas etre zero")
 @Enumerated(EnumType.STRING)
 private Nivel nivel;
 

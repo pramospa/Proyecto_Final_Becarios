@@ -42,36 +42,36 @@ public class Becario implements Serializable {
     private int id;
     
     
-    @NotNull(message = "El nombre no puede ser nulo")
-    @NotBlank(message = "EL nombre del becario es requerido")
+    @NotNull(message = "Le nom ne peut etre nul et non avenu")
+    @NotBlank(message = "Le nom du stagiaire est obligatoire")
     @Size(min = 1, max = 50, message = "El nombre no puede tener menos de 1 caracteres ni mas de 50")
     private String name;
     
-    @NotNull(message = "El apellido no puede ser nulo")
-    @NotBlank(message = "EL apellido del becario es requerido")
+    @NotNull(message = "Le nom ne peut etre invalide")
+    @NotBlank(message = "Le nom du stagiaire est requis")
     @Size(min = 1, max = 50, message = "El apellido no puede tener menos de 1 caracteres ni mas de 50")
     private String surname1;
    
     private String surname2;
     
-    @NotNull(message = "La fecha de nacimiento no puede ser nula")
+    @NotNull(message = "La date de naissance ne peut etre nulle")
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "El genero no puede ser nulo")
+    @NotNull(message = "Le genre ne peut etre nul")
     private Gender gender;
     public enum Gender {
         MAN, WOMAN, NONBINARY, OTHER
     }
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "El centro de procedencia no puede ser nulo")
+    @NotNull(message = "Le centre de provenance ne peut etre nul")
     private Center center;
     public enum Center {
         MURCIA, VALENCIA
     }
    
-    @NotNull(message = "La foto del producto es requerida")
+    @NotNull(message = "La photo du stagiaire est requise")
     private String imagenProducto;
     
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE},mappedBy = "becario")
@@ -94,5 +94,3 @@ public class Becario implements Serializable {
     private List<Feedback> feedback;
 
 }
-
-

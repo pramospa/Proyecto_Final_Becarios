@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.service.BecarioService;
 
 @RestController
-@RequestMapping("/filtrobecarios")
+@RequestMapping("/filterInterns")
 
 public class FilterController {
 
@@ -51,6 +51,27 @@ public class FilterController {
         try {
 
             camposfiltrados = becarioService.filterById(idBecario);
+            responseEntity = new ResponseEntity<List<Object>>(camposfiltrados, HttpStatus.OK);
+
+        } catch (DataAccessException e) {
+            responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+
+        return responseEntity;
+
+    }
+    @GetMapping("/id/{id}")
+
+    public ResponseEntity<List<Object>> filterByIdBecarioFeedback(
+            @PathVariable(name = "id", required = true) Integer idBecario) {
+
+        List<Object> camposfiltrados = new ArrayList<>();
+        ResponseEntity<List<Object>> responseEntity = null;
+
+        try {
+
+            camposfiltrados = becarioService.filterByFeedbackId(idBecario);
             responseEntity = new ResponseEntity<List<Object>>(camposfiltrados, HttpStatus.OK);
 
         } catch (DataAccessException e) {

@@ -37,29 +37,29 @@ public class BecarioInfo implements Serializable {
     private int id;
     
 
-    @NotNull(message = "El grado de estudios no puede ser nulo")
-    @NotBlank(message = "El grado de estudios del becario es requerido")
+    @NotNull(message = "Le niveau d'education ne peut etre nul")
+    @NotBlank(message = "Le niveau d'etudes du stagiaire est requis")
     private String degreeFP;
     
 
-    @NotNull(message = "El titulo de estudios no puede ser nulo")
-    @NotBlank(message = "El titulo de estudios del becario es requerido")
+    @NotNull(message = "Le diplome ne peut etre nul.")
+    @NotBlank(message = "Le titulaire de le stage doit etre titulaire d'un diplome.")
     private String title;
    
-    @NotNull(message = "La fecha de inicio no puede ser nula")
+    @NotNull(message = "La date de debut ne peut etre nulle")
     private LocalDate startDate;
    
     private LocalDate finishDate;
    
-    @NotNull(message = "El centro educativo de procedencia no puede ser nulo")
+    @NotNull(message = "L'ecole d'origine ne peut etre nulle et non avenue.")
     @Enumerated(EnumType.STRING)
     private EducationCenter educationCenter;
     public enum EducationCenter {
         UNIVERSITY, IES
     }
 
-    @NotNull(message = "El nombre del centro educativo de procedencia no puede ser nulo")
-    @NotBlank(message = "El nombre del centro educativo de procedencia es requerido")
+    @NotNull(message = "Le nom de l'ecole d'origine ne peut etre invalide.")
+    @NotBlank(message = "Le nom de l'ecole d'origine est requis.")
     private String nameCenter;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST,  CascadeType.MERGE})

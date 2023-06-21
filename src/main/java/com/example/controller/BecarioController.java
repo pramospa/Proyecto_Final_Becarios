@@ -39,7 +39,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/becarios")
+@RequestMapping("/interns")
 @RequiredArgsConstructor
 public class BecarioController {
     @Autowired
@@ -85,26 +85,26 @@ public class BecarioController {
             Becario becario = becarioService.findById(idBecario);
 
             if (becario != null) {
-                String successMessage = "Se ha encontrado el becario con ID: " + idBecario;
+                String successMessage = "Le stagiaire avec ID a ete trouve : " + idBecario;
 
-                responseAsMap.put("mensaje: ", successMessage);
-                responseAsMap.put("becario: ", becario);
+                responseAsMap.put("message: ", successMessage);
+                responseAsMap.put("stagiaire: ", becario);
                 responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
 
             } else {
 
-                String notFoundMessage = "No se ha encontrado el becario con el ID: " + idBecario;
+                String notFoundMessage = "Le stagiaire avec l'ID n'a pas ete trouve : " + idBecario;
 
-                responseAsMap.put("mensaje: ", notFoundMessage);
+                responseAsMap.put("message: ", notFoundMessage);
                 responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.NOT_FOUND);
 
             }
 
         } catch (DataAccessException e) {
 
-            String errorMessage = "Error grave, y la causa mas probable es: " + e.getMostSpecificCause();
+            String errorMessage = "Il s'agit d'une erreur grave, dont la cause la plus probable est : " + e.getMostSpecificCause();
 
-            responseAsMap.put("error grave:", errorMessage);
+            responseAsMap.put("erreur grave: ", errorMessage);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
@@ -135,8 +135,8 @@ public class BecarioController {
 
             }
 
-            responseAsMap.put("errores: ", mensajesError);
-            responseAsMap.put("becario: ", becario);
+            responseAsMap.put("erreurs: ", mensajesError);
+            responseAsMap.put("stagiaire: ", becario);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.BAD_REQUEST);
 
             return responseEntity;
@@ -149,12 +149,12 @@ public class BecarioController {
             FileUploadResponse fileUploadResponse = FileUploadResponse
                        .builder()
                        .fileName(fileCode + "-" + file.getOriginalFilename())
-                       .downloadURI("/productos/downloadFile/" 
+                       .downloadURI("/becarios/downloadFile/" 
                                  + fileCode + "-" + file.getOriginalFilename())
                        .size(file.getSize())
                        .build();
             
-            responseAsMap.put("Foto becario: ", fileUploadResponse);           
+            responseAsMap.put("photo stagiaire: ", fileUploadResponse);           
 
         }
 
@@ -162,18 +162,18 @@ public class BecarioController {
 
             Becario becarioPersistido = becarioService.save(becario);
 
-            String successMessage = "El becario se ha creado exitosamente";
+            String successMessage = "Le stagiaire a ete cree avec succes";
 
-            responseAsMap.put("mensaje: ", successMessage);
-            responseAsMap.put("becario: ", becarioPersistido);
+            responseAsMap.put("message: ", successMessage);
+            responseAsMap.put("stagiaire: ", becarioPersistido);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.CREATED);
 
         } catch (DataAccessException e) {
 
-            String errorMessage = "El becario no se pudo persistir y la causa mas probable del error es: " +
+            String errorMessage = "Le stagiaire n'a pas pu persister et la cause la plus probable de l'erreur est la suivante : " +
                     e.getMostSpecificCause();
 
-            responseAsMap.put("error: ", errorMessage);
+            responseAsMap.put("erreur: ", errorMessage);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
@@ -200,8 +200,8 @@ public class BecarioController {
 
             }
 
-            responseAsMap.put("errores: ", mensajesError);
-            responseAsMap.put("becario: ", becario);
+            responseAsMap.put("erreurs: ", mensajesError);
+            responseAsMap.put("stagiaire: ", becario);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.BAD_REQUEST);
 
             return responseEntity;
@@ -212,17 +212,17 @@ public class BecarioController {
 
             becario.setId(idBecario);
             Becario becarioActualizado = becarioService.save(becario);
-            String successMessage = "El becario se ha actualizado exitosamente";
-            responseAsMap.put("mensaje: ", successMessage);
-            responseAsMap.put("becario: ", becarioActualizado);
+            String successMessage = "Le stagiaire a ete mis a jour avec succes";
+            responseAsMap.put("message: ", successMessage);
+            responseAsMap.put("stagiaire: ", becarioActualizado);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.OK);
 
         } catch (DataAccessException e) {
 
-            String errorMessage = "El becario no se pudo actualizar y la causa mas probable del error es: " +
+            String errorMessage = "Le stagiaire n'a pas pu etre mis a jour et la cause la plus probable de l'erreur est la suivante: " +
                     e.getMostSpecificCause();
 
-            responseAsMap.put("error: ", errorMessage);
+            responseAsMap.put("erreur: ", errorMessage);
             responseEntity = new ResponseEntity<Map<String, Object>>(responseAsMap, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
@@ -240,7 +240,7 @@ public class BecarioController {
         try {
 
             becarioService.delete(becarioService.findById(idBecario));
-            responseasMap.put("mensaje: ", "El becario se ha eliminado correctamente");
+            responseasMap.put("message: ", "Le stagiaire a ete supprime avec succes");
             responseEntity = new ResponseEntity<Map<String, Object>>(responseasMap, HttpStatus.OK);
 
         } catch (DataAccessException e) {
